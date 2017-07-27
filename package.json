@@ -1,0 +1,24 @@
+{
+  "author": {
+    "name": "it4history",
+    "email": "it4history@gmail.com"
+  },
+  "dependencies": {
+    "postcss": "5.0.0"
+  },
+  "description": "PostCSS plugin that puts values from process.env into css",
+  "devDependencies": {
+  },
+  "homepage": "https://github.com/stehefan/postcss-env-replace",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "environment",
+    "env",
+    "template"
+  ],
+  "license": "MIT",
+  "name": "postcss-process-env",
+  "version": "0.0.1"
+}
