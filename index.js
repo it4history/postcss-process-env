@@ -22,7 +22,7 @@ function walkDeclaration(decl) {
     });
 }
 
-module.exports = postcss.plugin('postcss-env-replace', function (opts) {
+module.exports = postcss.plugin('postcss-process-env', function (opts) {
     return function (css) {
         css.walkRules(function walkRule(rule) {
             rule.walkDecls(function (decl) {
