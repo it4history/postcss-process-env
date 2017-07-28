@@ -4,8 +4,6 @@ function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
 
-var functionRegex = /<%([^<]+)%>/g;
-
 /**
  * Parses one CSS-declaration from the given AST and checks for
  * possible replacements
@@ -13,11 +11,14 @@ var functionRegex = /<%([^<]+)%>/g;
  * @param {Declaration} decl - one CSS-Declaration from the AST
  */
 function walkDeclaration(decl) {
-    decl.value = decl.value.replace(functionRegex, function (match, value) {
-		var prefix = 'process.env.';
+	var prefix = 'process.env.';
+    decl.value = decl.value.replace(/<%([^<]+)%>/g, function (match, value) {
 		value = replaceAll(replaceAll(value, prefix,'env.'), 'env.',prefix);
-		value = replaceAll(value, prefix+'(\\w+)', '(+'+prefix+'$1)'); //converting to number from string
+		value = replaceAll(value, prefix+'(\\w+)', 'parseFloat('+prefix+'$1)'); //converting to number from string
 		return eval(value);
+    });
+    decl.value = decl.value.replace(/v\(([^(^-]+)\)/g, function (match, value) {
+		return eval(prefix + value);
     });
 }
 
