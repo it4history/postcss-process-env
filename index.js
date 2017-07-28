@@ -4,8 +4,11 @@ var plugin = require('./package.json');
 /**
  * Regex searching for the function-name and its parameters
  */
-var functionRegex = /<%(.+)%>/gi;
+var functionRegex = /<%([^<]+)%>/g;
 
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
 /**
  * Parses one CSS-declaration from the given AST and checks for
  * possible replacements
@@ -14,7 +17,8 @@ var functionRegex = /<%(.+)%>/gi;
  */
 function walkDeclaration(decl) {
     decl.value = decl.value.replace(functionRegex, function (match, value) {
-        return eval(value.replace('process.env.','env.').replace('env.','process.env.'));
+		value = replaceAll(replaceAll(value,'process.env.','env.') ,'env.','process.env.');
+		return eval(value);
     });
 }
 
