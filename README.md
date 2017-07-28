@@ -10,3 +10,5 @@ div {
 }
 
 env. is shorthand for process.env.
+
+values should be of type number or string, and are converted to number
